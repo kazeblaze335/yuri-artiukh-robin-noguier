@@ -2,6 +2,7 @@ let speed = 0;
 let position = 0;
 let rounded = 0;
 let block = document.querySelector('#block');
+let wrap = document.querySelector('#wrap');
 let elems = [...document.querySelectorAll('.n')];
 
 window.addEventListener('wheel', (e) => {
@@ -16,8 +17,8 @@ function raf() {
 
     objs.forEach((o, i) => {
         o.dist = Math.min(Math.abs(position - i),1);
-        o.dist = o.dist;
-        elems[i].style.transform = `scale(${1 - o.dist})`;
+        o.dist = 1 - o.dist**1;
+        elems[i].style.transform = `scale(${1 - 0.4*o.dist})`;
     
     })
     rounded = Math.round(position);
@@ -25,8 +26,7 @@ function raf() {
     let diff = (rounded - position);
 
     position += Math.sign(diff)*Math.pow(Math.abs(diff), 0.7)*0.015;
-    console.log(position, "======")
-    block.style.transform = `translate(0, ${position*100 + 50}px)`;
+    wrap.style.transform = `translate(0, ${-position*100 + 50}px)`;
     window.requestAnimationFrame(raf);
 }
 
