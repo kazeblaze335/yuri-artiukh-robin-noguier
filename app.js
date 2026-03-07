@@ -1,3 +1,9 @@
+import Sketch from "./module";
+
+let sketch = new Sketch({
+    dom: document.getElementById("container")
+});
+
 let speed = 0;
 let position = 0;
 let rounded = 0;
@@ -19,6 +25,10 @@ function raf() {
         o.dist = Math.min(Math.abs(position - i),1);
         o.dist = 1 - o.dist**1;
         elems[i].style.transform = `scale(${1 - 0.4*o.dist})`;
+
+        let scale = 1 + 0.4*o.dist;
+        sketch.meshes[i].position.y = i * 1.2 - position * 1.2;
+        sketch.meshes[i].scale.set(scale, scale, scale);
     
     })
     rounded = Math.round(position);
@@ -27,6 +37,7 @@ function raf() {
 
     position += Math.sign(diff)*Math.pow(Math.abs(diff), 0.7)*0.015;
     wrap.style.transform = `translate(0, ${-position*100 + 50}px)`;
+    
     window.requestAnimationFrame(raf);
 }
 

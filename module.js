@@ -145,9 +145,7 @@ export default class Sketch {
     }
 }
 
-new Sketch({
-    dom: document.getElementById("container")
-});
+
 
 
 
